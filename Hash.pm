@@ -32,8 +32,7 @@ sub fetch {
     my $entries = @{ $buckets->[$bucket] }; # number of entries within the bucket: 0, 1, 2, …
     
     while ( $buckets->[$bucket][$entry][0] ne $key ) {
-        $entry++;
-        if ($entry == $entries) {
+        if (++$entry ==$entries) {
             $bucket = $entry = undef;
             last
         }
