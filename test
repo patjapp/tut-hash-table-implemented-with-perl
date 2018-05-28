@@ -12,6 +12,7 @@ use Hash;
 my $hash = new Hash();
 isa_ok( $hash, $class );
 can_ok( $hash, 'new'  );
+can_ok( $hash, 'store' );
 
 
 
