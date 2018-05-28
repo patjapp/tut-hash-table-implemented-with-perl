@@ -1,0 +1,15 @@
+#!/usr/bin/env perl
+use 5.018;
+use strict;
+use warnings;
+
+use Test::More;
+
+my $class = 'Hash';
+use_ok( $class );
+use Hash;;
+
+done_testing;
+
+
+exit 0;
