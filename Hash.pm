@@ -19,8 +19,18 @@ sub new {
 sub store {
     my ($self, $key, $value) = @_;
     my $buckets = $self->{buckets};
-    my ($bucket, $entry) = (0, 0);
-    push @{ $buckets->[$bucket] }, [ $key, $value ];
+    my ($bucket, $entry) = lookup($self, $key);
+    
+    if (defined $bucket) {
+        # $key already exists---update value
+        $buckets->[$bucket][$entry][1] = $value;
+    }
+    else {
+        # new $key---push into a bucket
+        $bucket = hash($self, $key) % @$buckets;
+        push @{ $buckets->[$bucket] }, [ $key, $value ];
+    }
+
     return $self;
 }
 
@@ -28,16 +38,8 @@ sub store {
 sub fetch {
     my ($self, $key) = @_;
     my $buckets = $self->{buckets};
-    my ($bucket, $entry) = (0, 0);
-    my $entries = @{ $buckets->[$bucket] }; # number of entries within the bucket: 0, 1, 2, …
+    my ($bucket, $entry) = lookup($self, $key);
     
-    while ( $buckets->[$bucket][$entry][0] ne $key ) {
-        if (++$entry ==$entries) {
-            $bucket = $entry = undef;
-            last
-        }
-    }
-
     return $buckets->[$bucket][$entry][1] if defined $bucket;
     return undef;
 }
