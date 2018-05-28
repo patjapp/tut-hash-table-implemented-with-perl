@@ -15,6 +15,8 @@ can_ok( $hash, 'new'  );
 can_ok( $hash, 'store' );
 can_ok( $hash, 'fetch' );
 
+$hash->store("key", "value");
+ok( $hash->fetch("key") eq "value", '$hash->fetch("key") eq "value"' );
 
 
 done_testing;
