@@ -23,6 +23,7 @@ ok( $hash->fetch("key") eq "value", '$hash->fetch("key") eq "value"' );
 ok( $hash->fetch("a") eq "A", '$hash->fetch("a") eq "A"' );
 ok( $hash->fetch("b") eq "B", '$hash->fetch("b") eq "B"' );
 ok( $hash->fetch("c") eq "C", '$hash->fetch("c") eq "C"' );
+ok( !defined $hash->fetch("x"), '!defined $hash->fetch("x")' );
 
 
 done_testing;
