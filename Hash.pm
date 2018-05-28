@@ -43,4 +43,14 @@ sub fetch {
 }
 
 
+sub hash {
+    my ($self, $key) = @_;
+    my $hash = 0;
+    foreach (split //, $key) {
+        $hash += ord($_);
+    }
+    return $hash;
+}
+
+
 1;

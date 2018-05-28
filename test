@@ -16,11 +16,12 @@ can_ok( $hash, 'store' );
 can_ok( $hash, 'fetch' );
 can_ok( $hash, 'hash' );
 
-my @data = ( [qw(a A)],[qw(b B)],[qw(c C)] );
+my @data = ( [qw(a A 97)],[qw(b B 98)],[qw(c C 99)] );
 $hash->store( $_->[0], $_->[1] )                                                     foreach (@data);
 ok( $hash->fetch( $_->[0] ) eq $_->[1], "fetch key >$_->[0]< with value >$_->[1]<" ) foreach (@data);
 ok( !defined $hash->fetch("x"), 'fetch undefined key should be >undef<' );
 
+ok( $hash->hash( $_->[0] ) == $_->[2], 'test hash method' ) foreach (@data);
 
 done_testing;
 
