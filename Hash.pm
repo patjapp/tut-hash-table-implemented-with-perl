@@ -17,4 +17,10 @@ sub store {
 }
 
 
+sub fetch {
+    my ($self, $key) = @_;
+    return $self;
+}
+
+
 1;
