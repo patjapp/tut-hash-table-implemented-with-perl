@@ -16,7 +16,13 @@ can_ok( $hash, 'store' );
 can_ok( $hash, 'fetch' );
 
 $hash->store("key", "value");
+$hash->store("a","A");
+$hash->store("b","B");
+$hash->store("c","C");
 ok( $hash->fetch("key") eq "value", '$hash->fetch("key") eq "value"' );
+ok( $hash->fetch("a") eq "A", '$hash->fetch("a") eq "A"' );
+ok( $hash->fetch("b") eq "B", '$hash->fetch("b") eq "B"' );
+ok( $hash->fetch("c") eq "C", '$hash->fetch("c") eq "C"' );
 
 
 done_testing;
