@@ -11,4 +11,10 @@ sub new {
 }
 
 
+sub store {
+    my ($self, $key, $value) = @_;
+    return $self;
+}
+
+
 1;
