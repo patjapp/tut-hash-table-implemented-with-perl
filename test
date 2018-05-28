@@ -7,7 +7,13 @@ use Test::More;
 
 my $class = 'Hash';
 use_ok( $class );
-use Hash;;
+use Hash;
+
+my $hash = new Hash();
+isa_ok( $hash, $class );
+can_ok( $hash, 'new'  );
+
+
 
 done_testing;
 
