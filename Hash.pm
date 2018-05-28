@@ -20,7 +20,7 @@ sub store {
     my ($self, $key, $value) = @_;
     my $buckets = $self->{buckets};
     my ($bucket, $entry) = (0, 0);
-    $buckets->[$bucket][$entry][1] = $value;
+    push @{ $buckets->[$bucket] }, [ $key, $value ];
     return $self;
 }
 
@@ -29,7 +29,18 @@ sub fetch {
     my ($self, $key) = @_;
     my $buckets = $self->{buckets};
     my ($bucket, $entry) = (0, 0);
-    return $buckets->[$bucket][$entry][1];
+    my $entries = @{ $buckets->[$bucket] }; # number of entries within the bucket: 0, 1, 2, …
+    
+    while ( $buckets->[$bucket][$entry][0] ne $key ) {
+        $entry++;
+        if ($entry == $entries) {
+            $bucket = $entry = undef;
+            last
+        }
+    }
+
+    return $buckets->[$bucket][$entry][1] if defined $bucket;
+    return undef;
 }
 
 
