@@ -15,15 +15,10 @@ can_ok( $hash, 'new'  );
 can_ok( $hash, 'store' );
 can_ok( $hash, 'fetch' );
 
-$hash->store("key", "value");
-$hash->store("a","A");
-$hash->store("b","B");
-$hash->store("c","C");
-ok( $hash->fetch("key") eq "value", '$hash->fetch("key") eq "value"' );
-ok( $hash->fetch("a") eq "A", '$hash->fetch("a") eq "A"' );
-ok( $hash->fetch("b") eq "B", '$hash->fetch("b") eq "B"' );
-ok( $hash->fetch("c") eq "C", '$hash->fetch("c") eq "C"' );
-ok( !defined $hash->fetch("x"), '!defined $hash->fetch("x")' );
+my @data = ( [qw(a A)],[qw(b B)],[qw(c C)] );
+$hash->store( $_->[0], $_->[1] )                                                     foreach (@data);
+ok( $hash->fetch( $_->[0] ) eq $_->[1], "fetch key >$_->[0]< with value >$_->[1]<" ) foreach (@data);
+ok( !defined $hash->fetch("x"), 'fetch undefined key should be >undef<' );
 
 
 done_testing;
