@@ -14,6 +14,7 @@ isa_ok( $hash, $class );
 can_ok( $hash, 'new'  );
 can_ok( $hash, 'store' );
 can_ok( $hash, 'fetch' );
+can_ok( $hash, 'hash' );
 
 my @data = ( [qw(a A)],[qw(b B)],[qw(c C)] );
 $hash->store( $_->[0], $_->[1] )                                                     foreach (@data);
