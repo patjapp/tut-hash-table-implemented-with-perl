@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Test::More;
-use Data::Dumper;
+#use Data::Dumper;
 
 my $class = 'Hash';
 use_ok( $class );
@@ -18,6 +18,7 @@ can_ok( $hash, 'fetch' );
 can_ok( $hash, 'hash' );
 can_ok( $hash, 'lookup' );
 can_ok( $hash, 'getNoOfBuckets' );
+can_ok( $hash, 'exists' );
 
 my @data = (
 	[ qw/ a A  97 0 / ], #1
@@ -30,7 +31,11 @@ my @data = (
 	[ qw/ h H 104 1 / ], #8
 );
 
-$hash->store( $_->[0], $_->[1] )                                                     foreach (@data);
+foreach (@data) {
+	$hash->store( $_->[0], $_->[1] );
+	ok( $hash->exists($_->[0]), "hash with key >$_->[0]< exists"  );
+}
+
 ok( $hash->fetch( $_->[0] ) eq $_->[1], "fetch key >$_->[0]< with value >$_->[1]<" ) foreach (@data);
 ok( !defined $hash->fetch("x"), 'fetch undefined key should be >undef<' );
 
@@ -42,6 +47,6 @@ ok( eq_array( [ ($hash->lookup($_->[0]))[0], ($hash->lookup($_->[0]))[1] ], [ $_
 
 done_testing;
 
-print Dumper $hash;
+#print Dumper $hash;
 
 exit 0;
