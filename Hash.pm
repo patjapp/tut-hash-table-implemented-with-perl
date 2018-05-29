@@ -8,8 +8,10 @@ package Hash;
 
 sub new {
     my $self = shift;
+	my $no_of_buckets = 7;
     $self = {
-        buckets => [ [], [], [], [], [], [], [] ],
+        no_of_buckets => $no_of_buckets,
+    	buckets => [ map {[]} 1..$no_of_buckets ],
     };
     bless  $self;
     return $self;
@@ -77,6 +79,11 @@ sub lookup {
     }
 
     return ($bucket, $entry);
+}
+
+
+sub getNoOfBuckets {
+	shift->{no_of_buckets}
 }
 
 

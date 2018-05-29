@@ -16,6 +16,7 @@ can_ok( $hash, 'store' );
 can_ok( $hash, 'fetch' );
 can_ok( $hash, 'hash' );
 can_ok( $hash, 'lookup' );
+can_ok( $hash, 'getNoOfBuckets' );
 
 my @data = ( [qw(a A 97)],[qw(b B 98)],[qw(c C 99)] );
 
@@ -25,7 +26,8 @@ ok( !defined $hash->fetch("x"), 'fetch undefined key should be >undef<' );
 
 ok( $hash->hash( $_->[0] ) == $_->[2], 'test hash method' ) foreach (@data);
 
-ok( eq_array( [ ($hash->lookup('a'))[0], ($hash->lookup('a'))[1] ], [ $data[0]->[2] % 7, 0 ] ), 'test lookup' );
+ok( $hash->getNoOfBuckets == 7, "default for no_of_buckets" );
+ok( eq_array( [ ($hash->lookup($_->[0]))[0], ($hash->lookup($_->[0]))[1] ], [ $_->[2] % $hash->getNoOfBuckets, 0 ] ), "test lookup for key >$_->[0]<"  ) foreach (@data);
 
 
 done_testing;
