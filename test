@@ -18,13 +18,22 @@ can_ok( $hash, 'hash' );
 can_ok( $hash, 'lookup' );
 can_ok( $hash, 'getNoOfBuckets' );
 
-my @data = ( [qw(a A 97)],[qw(b B 98)],[qw(c C 99)] );
+my @data = (
+	[ qw/ a A  97 / ], #1
+	[ qw/ b B  98 / ], #2
+	[ qw/ c C  99 / ], #3
+	[ qw/ d D 100 / ], #4
+	[ qw/ e E 101 / ], #5
+	[ qw/ f F 102 / ], #6
+	[ qw/ g G 103 / ], #7
+	[ qw/ h H 104 / ], #8
+);
 
 $hash->store( $_->[0], $_->[1] )                                                     foreach (@data);
 ok( $hash->fetch( $_->[0] ) eq $_->[1], "fetch key >$_->[0]< with value >$_->[1]<" ) foreach (@data);
 ok( !defined $hash->fetch("x"), 'fetch undefined key should be >undef<' );
 
-ok( $hash->hash( $_->[0] ) == $_->[2], 'test hash method' ) foreach (@data);
+ok( $hash->hash( $_->[0] ) == $_->[2], "test hash method for key >$_->[0]<" ) foreach (@data);
 
 ok( $hash->getNoOfBuckets == 7, "default for no_of_buckets" );
 ok( eq_array( [ ($hash->lookup($_->[0]))[0], ($hash->lookup($_->[0]))[1] ], [ $_->[2] % $hash->getNoOfBuckets, 0 ] ), "test lookup for key >$_->[0]<"  ) foreach (@data);
