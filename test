@@ -32,9 +32,12 @@ my @data = (
 	[ qw/ h H 104 1 / ], #8
 );
 
+my $count;
 foreach (@data) {
 	$hash->store( $_->[0], $_->[1] );
 	ok( $hash->exists($_->[0]), "hash with key >$_->[0]< exists"  );
+	
+	ok( ++$count==$hash->getNoOfKeys, "number of stored keys: $count" );
 }
 
 ok( $hash->fetch( $_->[0] ) eq $_->[1], "fetch key >$_->[0]< with value >$_->[1]<" ) foreach (@data);
