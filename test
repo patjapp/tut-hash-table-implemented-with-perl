@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Test::More;
+use Data::Dumper;
 
 my $class = 'Hash';
 use_ok( $class );
@@ -40,4 +41,7 @@ ok( eq_array( [ ($hash->lookup($_->[0]))[0], ($hash->lookup($_->[0]))[1] ], [ $_
 
 
 done_testing;
+
+print Dumper $hash;
+
 exit 0;
