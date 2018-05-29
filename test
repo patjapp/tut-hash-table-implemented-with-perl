@@ -19,6 +19,7 @@ can_ok( $hash, 'hash' );
 can_ok( $hash, 'lookup' );
 can_ok( $hash, 'getNoOfBuckets' );
 can_ok( $hash, 'exists' );
+can_ok( $hash, 'getNoOfKeys' );
 
 my @data = (
 	[ qw/ a A  97 0 / ], #1
