@@ -7,12 +7,12 @@ package Hash;
 
 
 sub new {
-    my $self = shift;
+    my $self          = shift;
 	my $no_of_buckets = 7;
     $self = {
         no_of_buckets => $no_of_buckets,
-		no_of_keys => 0,
-    	buckets => [ map {[]} 1..$no_of_buckets ],
+		no_of_keys    => 0,
+    	buckets       => [ map {[]} 1..$no_of_buckets ],
     };
     bless  $self;
     return $self;
@@ -21,8 +21,8 @@ sub new {
 
 sub store {
     my ($self, $key, $value) = @_;
-    my $buckets = $self->{buckets};
-    my ($bucket, $entry) = lookup($self, $key);
+    my $buckets              = $self->{buckets};
+    my ($bucket, $entry)     = lookup($self, $key);
     
     if (defined $bucket) {
         # $key already exists---update value
@@ -40,8 +40,8 @@ sub store {
 
 
 sub fetch {
-    my ($self, $key) = @_;
-    my $buckets = $self->{buckets};
+    my ($self, $key)     = @_;
+    my $buckets          = $self->{buckets};
     my ($bucket, $entry) = lookup($self, $key);
     
     return $buckets->[$bucket][$entry][1] if defined $bucket;
@@ -60,16 +60,16 @@ sub hash {
 
 
 sub lookup {
-    my ($self, $key) = @_;
-    my $buckets = $self->{buckets};                   # reference to the bucket container
-    my $bucket  = hash($self, $key) % @$buckets;      # bucket index: [0, @$buckets)
-    my $entries = @{ $buckets->[$bucket] };           # number of entries within the bucket: 0, 1, 2, …
-    my $entry   = 0;                                  # start value
+    my ($self, $key)  = @_;
+    my $buckets       = $self->{buckets};                   # reference to the bucket container
+    my $bucket        = hash($self, $key) % @$buckets;      # bucket index: [0, @$buckets)
+    my $no_of_entries = @{ $buckets->[$bucket] };           # number of entries within the bucket: 0, 1, 2, …
+    my $entry         = 0;                                  # start value
 
-    if ($entries >0) {
+    if ($no_of_entries >0) {
         # look for the correct entry inside the bucket
         while ( $buckets->[$bucket][$entry][0] ne $key ) {
-            if (++$entry ==$entries) {
+            if (++$entry ==$no_of_entries) {
                 $bucket = $entry = undef;
                 last;
             }
