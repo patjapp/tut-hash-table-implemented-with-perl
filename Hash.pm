@@ -87,4 +87,11 @@ sub getNoOfBuckets {
 }
 
 
+sub exists {
+	my ($self, $key) = @_;
+	my ($bucket, $entry) = lookup($self, $key);
+	return defined $bucket;
+}
+
+
 1;
