@@ -87,6 +87,11 @@ sub getNoOfBuckets {
 }
 
 
+sub getNoOfKeys {
+	shift->{no_of_keys}
+}
+
+
 sub exists {
 	my ($self, $key) = @_;
 	my ($bucket, $entry) = lookup($self, $key);
