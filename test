@@ -25,8 +25,7 @@ ok( !defined $hash->fetch("x"), 'fetch undefined key should be >undef<' );
 
 ok( $hash->hash( $_->[0] ) == $_->[2], 'test hash method' ) foreach (@data);
 
-my @lookup = $hash->lookup( 'a' );
-ok( eq_array( \@lookup, [ 97%7, 0 ] ), 'test lookup' );
+ok( eq_array( [ ($hash->lookup('a'))[0], ($hash->lookup('a'))[1] ], [ $data[0]->[2] % 7, 0 ] ), 'test lookup' );
 
 
 done_testing;
