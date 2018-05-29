@@ -11,6 +11,7 @@ sub new {
 	my $no_of_buckets = 7;
     $self = {
         no_of_buckets => $no_of_buckets,
+		no_of_keys => 0,
     	buckets => [ map {[]} 1..$no_of_buckets ],
     };
     bless  $self;
@@ -31,6 +32,7 @@ sub store {
         # new $key---push into a bucket
         $bucket = hash($self, $key) % @$buckets;
         push @{ $buckets->[$bucket] }, [ $key, $value ];
+		$self->{no_of_keys}++;
     }
 
     return $self;
